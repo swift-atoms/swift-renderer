@@ -26,35 +26,24 @@ import Testing
     }
 
     @Test(arguments: [-1, 0, 1, 2])
-    func `Regrouping and array composition preserve failure and effect order`(stop: Int) {
-        let a = Step(index: 0, stop: stop)
-        let b = Step(index: 1, stop: stop)
-        let c = Step(index: 2, stop: stop)
-        var left = [99], right = [99], array = [99]
+    func `Array composition preserves failure and effect order`(stop: Int) {
+        let operations = (0...2).map { Step(index: $0, stop: stop) }
+        var context = [99]
 
-        let leftFailure = outcome(Pair(Pair(a, b), c), into: &left)
-        let rightFailure = outcome(Pair(a, Pair(b, c)), into: &right)
-        let arrayFailure = outcome([a, b, c], into: &array)
+        let failure = outcome(operations, into: &context)
 
-        #expect(leftFailure == (stop < 0 ? nil : .stopped(stop)))
-        #expect(leftFailure == rightFailure)
-        #expect(leftFailure == arrayFailure)
-        #expect(left == [99] + Array(10...(stop < 0 ? 12 : 10 + stop)))
-        #expect(left == right)
-        #expect(left == array)
+        #expect(failure == (stop < 0 ? nil : .stopped(stop)))
+        #expect(context == [99] + Array(10...(stop < 0 ? 12 : 10 + stop)))
     }
 
-    @Test func `Empty arrays and absent operations are composition identities` () {
-        let operation = Step(index: 0, stop: -1)
+    @Test func `Empty arrays and absent operations leave the context unchanged`() {
         let empty: [Step] = []
         let absent: Step? = nil
         var context = [99]
 
-        #expect(outcome(Pair(empty, operation), into: &context) == nil)
-        #expect(outcome(Pair(operation, empty), into: &context) == nil)
-        #expect(outcome(Pair(absent, operation), into: &context) == nil)
-        #expect(outcome(Pair(operation, absent), into: &context) == nil)
-        #expect(context == [99, 10, 10, 10, 10])
+        #expect(outcome(empty, into: &context) == nil)
+        #expect(outcome(absent, into: &context) == nil)
+        #expect(context == [99])
     }
 
     @Test(arguments: [-1, 0])

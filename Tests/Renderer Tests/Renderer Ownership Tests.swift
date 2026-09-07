@@ -46,7 +46,7 @@ import Testing
         #expect(context.total == 8)
     }
 
-    @Test func `All adapters preserve noncopyable inputs and contexts` () {
+    @Test func `Array and optional adapters preserve noncopyable inputs and contexts` () {
         let witness = Renderer.Witness<Input, Context, Never> { input, context in
             context.total += input.value
         }
@@ -54,15 +54,14 @@ import Testing
         var context = Context()
         let optional: Renderer.Witness<Input, Context, Never>? = witness
 
-        Pair(witness, witness).render(input, into: &context)
         [witness, witness].render(input, into: &context)
         optional.render(input, into: &context)
 
-        #expect(context.total == 15)
+        #expect(context.total == 9)
         #expect(input.value == 3)
     }
 
-    @Test func `All adapters accept scoped inputs and contexts` () {
+    @Test func `Array and optional adapters accept scoped inputs and contexts` () {
         let values = [3, 7]
         let input = values.span
         var context = ScopedContext(values.span)
@@ -71,11 +70,10 @@ import Testing
         }
         let optional: Renderer.Witness<Span<Int>, ScopedContext, Never>? = witness
 
-        Pair(witness, witness).render(input, into: &context)
         [witness, witness].render(input, into: &context)
         optional.render(input, into: &context)
 
-        #expect(context.total == 50)
+        #expect(context.total == 30)
         #expect(input[0] == 3)
     }
 

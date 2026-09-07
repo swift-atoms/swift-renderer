@@ -17,15 +17,9 @@ let package = Package(
         .library(name: "Renderer Foundation Integration", targets: ["Renderer Foundation Integration"]),
         .library(name: "Renderer Test Support", targets: ["Renderer Test Support"]),
     ],
-    dependencies: [
-        .package(url: "https://github.com/swift-atoms/swift-pair.git", branch: "main"),
-    ],
     targets: [
         .target(
             name: "Renderer",
-            dependencies: [
-                .product(name: "Pair", package: "swift-pair"),
-            ],
             path: "Sources/Renderer"
         ),
         
