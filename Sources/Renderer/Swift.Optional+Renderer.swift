@@ -1,5 +1,3 @@
-public import Renderer
-
 extension Swift.Optional: Renderer.`Protocol` where
     Wrapped: Renderer.`Protocol`,
     Wrapped.Input: ~Copyable & ~Escapable,

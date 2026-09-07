@@ -1,5 +1,4 @@
 import Renderer
-import Renderer_Standard_Library_Integration
 import Testing
 
 @Suite struct RendererContractTests {

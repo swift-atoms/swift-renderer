@@ -13,8 +13,8 @@ let package = Package(
     ],
     products: [
         .library(name: "Renderer", targets: ["Renderer"]),
-        .library(name: "Renderer Standard Library Integration", targets: ["Renderer Standard Library Integration"]),
-        .library(name: "Renderer Foundation Library Integration", targets: ["Renderer Foundation Library Integration"]),
+
+        .library(name: "Renderer Foundation Integration", targets: ["Renderer Foundation Integration"]),
         .library(name: "Renderer Test Support", targets: ["Renderer Test Support"]),
     ],
     dependencies: [
@@ -28,20 +28,13 @@ let package = Package(
             ],
             path: "Sources/Renderer"
         ),
+        
         .target(
-            name: "Renderer Standard Library Integration",
+            name: "Renderer Foundation Integration",
             dependencies: [
                 .target(name: "Renderer"),
             ],
-            path: "Sources/Renderer Standard Library Integration"
-        ),
-        .target(
-            name: "Renderer Foundation Library Integration",
-            dependencies: [
-                .target(name: "Renderer"),
-                .target(name: "Renderer Standard Library Integration"),
-            ],
-            path: "Sources/Renderer Foundation Library Integration"
+            path: "Sources/Renderer Foundation Integration"
         ),
         .target(
             name: "Renderer Test Support",
@@ -55,8 +48,7 @@ let package = Package(
             dependencies: [
                 .target(name: "Renderer"),
                 .target(name: "Renderer Test Support"),
-                .target(name: "Renderer Standard Library Integration"),
-                .target(name: "Renderer Foundation Library Integration"),
+                .target(name: "Renderer Foundation Integration"),
             ],
             path: "Tests/Renderer Tests"
         ),

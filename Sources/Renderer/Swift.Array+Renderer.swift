@@ -1,5 +1,3 @@
-public import Renderer
-
 extension Swift.Array: Renderer.`Protocol` where
     Element: Renderer.`Protocol`,
     Element.Input: ~Copyable & ~Escapable,
