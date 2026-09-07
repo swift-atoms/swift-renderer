@@ -1,7 +1,5 @@
 public import Pair
 
-/// A pair of rendering operations presents the same input in left-to-right order.
-/// A failure in the first operation prevents the second operation from running.
 extension Pair: Renderer.`Protocol`
 where
     First: Renderer.`Protocol` & ~Copyable,

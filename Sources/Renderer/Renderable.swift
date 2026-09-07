@@ -1,7 +1,6 @@
-/// A value with a statically associated renderer.
-/// The renderer remains an independent operation with explicit input and context.
 public protocol Renderable: ~Copyable {
-    associatedtype Renderer: Renderer::Renderer.`Protocol` where Renderer.Input == Self
+    associatedtype Renderer: Renderer::Renderer.`Protocol` & ~Copyable
+    where Renderer.Input == Self, Renderer.Context: ~Copyable & ~Escapable
     static var renderer: Renderer { get }
 }
 

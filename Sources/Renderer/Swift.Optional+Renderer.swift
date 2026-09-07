@@ -1,5 +1,5 @@
 extension Swift.Optional: Renderer.`Protocol` where
-    Wrapped: Renderer.`Protocol`,
+    Wrapped: Renderer.`Protocol` & ~Copyable,
     Wrapped.Input: ~Copyable & ~Escapable,
     Wrapped.Context: ~Copyable & ~Escapable
 {
@@ -8,6 +8,9 @@ extension Swift.Optional: Renderer.`Protocol` where
     public typealias Failure = Wrapped.Failure
 
     public borrowing func render(_ input: borrowing Input, into context: inout Context) throws(Failure) {
-        if let renderer = copy self { try renderer.render(input, into: &context) }
+        switch self {
+        case .some(let renderer): try renderer.render(input, into: &context)
+        case .none: break
+        }
     }
 }

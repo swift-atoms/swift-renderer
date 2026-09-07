@@ -1,7 +1,7 @@
 import Renderer
 import Testing
 
-@Suite struct RendererContractTests {
+@Suite struct `Renderer contracts` {
     enum Failure: Error, Equatable { case stopped }
 
     struct DecoratedText: Renderer.`Protocol` {
@@ -20,7 +20,7 @@ import Testing
     }
     struct OwnedContext: ~Copyable { var count = 0 }
 
-    @Test func operationIsIndependentOfInputInstance() {
+    @Test func `An operation is independent of an input instance`() {
         let renderer = DecoratedText(prefix: "[")
         var context = ""
         renderer.render("a", into: &context)
@@ -28,13 +28,13 @@ import Testing
         #expect(context == "[a[b")
     }
 
-    @Test func sequencePreservesOrder() {
+    @Test func `A pair preserves operation order`() {
         var context = ""
         Pair(DecoratedText(prefix: "a"), DecoratedText(prefix: "b")).render("!", into: &context)
         #expect(context == "a!b!")
     }
 
-    @Test func compositionIsAssociative() {
+    @Test func `Composition is associative`() {
         let a = DecoratedText(prefix: "a"), b = DecoratedText(prefix: "b"), c = DecoratedText(prefix: "c")
         var left = "", right = ""
         Pair(Pair(a, b), c).render("!", into: &left)
@@ -43,7 +43,7 @@ import Testing
         #expect(left == "a!b!c!")
     }
 
-    @Test func failureStopsLaterEffectsAndPreservesEarlierEffects() {
+    @Test func `Failure stops later effects and preserves earlier effects`() {
         let first = Renderer.Witness<Int, [Int], Failure> { input, context throws(Failure) in
             context.append(input)
             throw .stopped
@@ -56,7 +56,7 @@ import Testing
         #expect(context == [1])
     }
 
-    @Test func targetDoesNotNeedToBeTextOrBytes() {
+    @Test func `A target need not be text or bytes`() {
         var context: [Int] = []
         [Event(offset: 1), Event(offset: 4)].render(3, into: &context)
         let absent: Event? = nil
@@ -64,7 +64,7 @@ import Testing
         #expect(context == [4, 7])
     }
 
-    @Test func noncopyableInputAndRendererAreBorrowed() {
+    @Test func `Noncopyable inputs and renderers are borrowed`() {
         let renderer = Pair(OwnedRenderer(), OwnedRenderer())
         let input = OwnedInput(value: "a")
         var context = ""
@@ -73,7 +73,7 @@ import Testing
         #expect(context == "aaaa")
     }
 
-    @Test func contextCanBeNoncopyable() {
+    @Test func `A witness can mutate a noncopyable context`() {
         let renderer = Renderer.Witness<Int, OwnedContext, Never> { input, context in context.count += input }
         var context = OwnedContext()
         renderer.render(3, into: &context)

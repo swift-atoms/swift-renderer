@@ -1,5 +1,4 @@
 extension Renderer {
-    /// An explicit witness of a rendering operation, independent of any input instance.
     public struct Witness<Input: ~Copyable & ~Escapable, Context: ~Copyable & ~Escapable, Failure: Swift.Error>:
         Renderer.`Protocol`
     {
