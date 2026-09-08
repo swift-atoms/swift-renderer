@@ -1,7 +1,7 @@
 import Renderer
 import Testing
 
-@Suite struct `Renderer contracts` {
+@Suite struct `Renderers reuse operations across inputs and mutate supplied contexts` {
     struct DecoratedText: Renderer.`Protocol` {
         let prefix: String
         func render(_ input: borrowing String, into context: inout String) { context += prefix + input }

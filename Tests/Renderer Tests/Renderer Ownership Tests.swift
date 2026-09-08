@@ -1,7 +1,7 @@
 import Renderer
 import Testing
 
-@Suite struct `Renderer ownership contracts` {
+@Suite struct `Renderers preserve borrowed input and context ownership` {
     struct Input: ~Copyable { let value: Int }
     struct Context: ~Copyable { var total = 0 }
 
