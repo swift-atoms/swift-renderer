@@ -16,13 +16,29 @@ let package = Package(
 
         .library(name: "Renderer Foundation Integration", targets: ["Renderer Foundation Integration"]),
         .library(name: "Renderer Test Support", targets: ["Renderer Test Support"]),
+        .library(name: "Empty Renderer Test Support", targets: ["Empty Renderer Test Support"]),
+        .library(name: "Pair Renderer Test Support", targets: ["Pair Renderer Test Support"]),
+        .library(name: "Renderer Document Test Support", targets: ["Renderer Document Test Support"]),
+    ],
+    traits: [
+        .trait(name: "Document", description: "Absorbed Document integration"),
+        .trait(name: "Empty", description: "Absorbed Empty integration"),
+        .trait(name: "Pair", description: "Absorbed Pair integration"),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/swift-atoms/swift-empty.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-pair.git", branch: "main"),
     ],
     targets: [
         .target(
             name: "Renderer",
+            dependencies: [
+                .product(name: "Empty", package: "swift-empty", condition: .when(traits: ["Empty"])),
+                .product(name: "Pair", package: "swift-pair", condition: .when(traits: ["Pair"])),
+    ],
             path: "Sources/Renderer"
         ),
-        
+
         .target(
             name: "Renderer Foundation Integration",
             dependencies: [
@@ -46,6 +62,12 @@ let package = Package(
             ],
             path: "Tests/Renderer Tests"
         ),
+        .testTarget(name: "Absorbed swift-empty-renderer Empty Renderer Tests", dependencies: [.target(name: "Renderer")], path: "Tests/Absorbed/swift-empty-renderer/Empty Renderer Tests"),
+        .target(name: "Empty Renderer Test Support", dependencies: [.target(name: "Renderer")], path: "Tests/Absorbed/swift-empty-renderer/Support"),
+        .testTarget(name: "Absorbed swift-pair-renderer Pair Renderer Tests", dependencies: [.target(name: "Renderer")], path: "Tests/Absorbed/swift-pair-renderer/Pair Renderer Tests"),
+        .target(name: "Pair Renderer Test Support", dependencies: [.target(name: "Renderer")], path: "Tests/Absorbed/swift-pair-renderer/Support"),
+        .testTarget(name: "Absorbed swift-renderer-document Renderer Document Tests", dependencies: [.target(name: "Renderer"), .target(name: "Renderer Document Test Support")], path: "Tests/Absorbed/swift-renderer-document/Renderer Document Tests"),
+        .target(name: "Renderer Document Test Support", dependencies: [.target(name: "Renderer")], path: "Tests/Absorbed/swift-renderer-document/Support"),
     ],
     swiftLanguageModes: [.v6]
 )

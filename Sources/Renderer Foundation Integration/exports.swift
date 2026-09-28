@@ -1,2 +1,2 @@
 @_exported public import Renderer
-import Foundation
+@_exported public import Foundation

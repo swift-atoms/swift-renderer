@@ -1,0 +1,15 @@
+#if Document
+extension Renderer.Document.Semantic {
+
+    public enum Block: Sendable {
+        case heading(level: Int)
+        case paragraph
+        case blockquote
+        case section
+        case pre
+        case table
+        case row
+        case cell(header: Bool)
+    }
+}
+#endif
