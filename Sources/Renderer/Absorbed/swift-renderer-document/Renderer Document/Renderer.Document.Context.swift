@@ -1,9 +1,9 @@
 #if Document
 extension Renderer.Document {
 
-    public struct Context: ~Copyable {
+    @safe public struct Context: ~Copyable {
 
-        @usableFromInline var _stack: [Renderer.Document.Work] = []
+        @usableFromInline var _stack: [Renderer.Document.Work] = unsafe []
 
         public var text: (String) -> Void
 
@@ -164,7 +164,7 @@ extension Renderer.Document.Context {
 
     @inlinable
     public mutating func render<V: Renderer.Document.View & ~Copyable>(_ view: borrowing V) {
-        _stack.reserveCapacity(64)
+        unsafe _stack.reserveCapacity(64)
         defer { _cleanupStack() }
         V._render(view, context: &self)
         _drain(above: 0)
@@ -172,9 +172,9 @@ extension Renderer.Document.Context {
 
     @usableFromInline
     mutating func _drain(above marker: Int) {
-        while _stack.count > marker {
-            let work = _stack.removeLast()
-            switch work {
+        while unsafe _stack.count > marker {
+            let work = unsafe _stack.removeLast()
+            switch unsafe work {
             case .render(let pointer, let thunk):
                 unsafe thunk.dispatch(pointer, &self)
                 unsafe thunk.destroy(pointer)
@@ -193,12 +193,12 @@ extension Renderer.Document.Context {
 
     @usableFromInline
     mutating func _cleanupStack() {
-        for work in _stack {
-            if case .render(let pointer, let thunk) = work {
+        for unsafe work in unsafe _stack {
+            if case .render(let pointer, let thunk) = unsafe work {
                 unsafe thunk.destroy(pointer)
             }
         }
-        _stack.removeAll(keepingCapacity: true)
+        unsafe _stack.removeAll(keepingCapacity: true)
     }
 
     @inlinable
@@ -207,15 +207,15 @@ extension Renderer.Document.Context {
         pop: Renderer.Document.Action.Pop
     ) {
         interpret(.push(push))
-        _stack.append(.frame(.closeScope(.pop(pop))))
+        unsafe _stack.append(.frame(.closeScope(.pop(pop))))
     }
 
     @usableFromInline
-    var _stackDepth: Int { _stack.count }
+    var _stackDepth: Int { unsafe _stack.count }
 
     @usableFromInline
     mutating func _reverseAbove(_ marker: Int) {
-        _stack[marker...].reverse()
+        unsafe _stack[marker...].reverse()
     }
 }
 #endif

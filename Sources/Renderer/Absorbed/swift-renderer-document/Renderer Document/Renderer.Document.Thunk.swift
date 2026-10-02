@@ -2,7 +2,7 @@
 extension Renderer.Document {
 
     @usableFromInline
-    struct Thunk {
+    @unsafe struct Thunk {
         @usableFromInline
         let dispatch: (UnsafeMutableRawPointer, inout Renderer.Document.Context) -> Void
 

@@ -15,7 +15,7 @@ extension ContextTests.Unit {
     @Test
     func `text appends text event`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.text("hello")
         #expect(state.events == [.text("hello")])
     }
@@ -23,7 +23,7 @@ extension ContextTests.Unit {
     @Test
     func `pushBlock and popBlock pair correctly`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.block(role: .paragraph, style: .empty)
         ctx.pop.block()
         #expect(
@@ -37,7 +37,7 @@ extension ContextTests.Unit {
     @Test
     func `pushInline and popInline pair correctly`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.inline(role: .strong, style: .empty)
         ctx.pop.inline()
         #expect(
@@ -51,7 +51,7 @@ extension ContextTests.Unit {
     @Test
     func `pushList and popList pair correctly`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.list(kind: .ordered, start: 1)
         ctx.pop.list()
         #expect(
@@ -65,7 +65,7 @@ extension ContextTests.Unit {
     @Test
     func `pushItem and popItem pair correctly`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.item()
         ctx.pop.item()
         #expect(state.events == [.pushItem, .popItem])
@@ -74,7 +74,7 @@ extension ContextTests.Unit {
     @Test
     func `lineBreak appends break line event`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.`break`.line()
         #expect(state.events == [.break(.line)])
     }
@@ -82,7 +82,7 @@ extension ContextTests.Unit {
     @Test
     func `thematicBreak appends break thematic event`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.`break`.thematic()
         #expect(state.events == [.break(.thematic)])
     }
@@ -90,7 +90,7 @@ extension ContextTests.Unit {
     @Test
     func `image records source and alt`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.image("photo.png", "A photo")
         #expect(state.events == [.image(source: "photo.png", alt: "A photo")])
     }
@@ -98,7 +98,7 @@ extension ContextTests.Unit {
     @Test
     func `pushLink and popLink pair correctly`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.link("https://example.com")
         ctx.pop.link()
         #expect(
@@ -112,7 +112,7 @@ extension ContextTests.Unit {
     @Test
     func `pageBreak appends break page event`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.`break`.page()
         #expect(state.events == [.break(.page)])
     }
@@ -120,7 +120,7 @@ extension ContextTests.Unit {
     @Test
     func `block roles are recorded correctly`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.block(role: .heading(level: 2), style: .empty)
         ctx.pop.block()
         #expect(state.events[0] == .pushBlock(role: .heading(level: 2), style: .empty))
@@ -129,7 +129,7 @@ extension ContextTests.Unit {
     @Test
     func `nil role is recorded`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.block(role: nil, style: .empty)
         #expect(state.events[0] == .pushBlock(role: nil, style: .empty))
     }
@@ -138,7 +138,7 @@ extension ContextTests.Unit {
     func `styles are recorded correctly`() {
         let style = Renderer.Document.Style(font: .init(size: 16, weight: .bold), color: .red, margin: 8)
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.block(role: .paragraph, style: style)
         #expect(state.events[0] == .pushBlock(role: .paragraph, style: style))
     }
@@ -146,7 +146,7 @@ extension ContextTests.Unit {
     @Test
     func `unordered list kind is recorded`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.list(kind: .unordered, start: nil)
         #expect(state.events[0] == .pushList(kind: .unordered, start: nil))
     }
@@ -154,7 +154,7 @@ extension ContextTests.Unit {
     @Test
     func `pushAttributes and popAttributes pair correctly`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.attributes()
         ctx.pop.attributes()
         #expect(state.events == [.pushAttributes, .popAttributes])
@@ -163,7 +163,7 @@ extension ContextTests.Unit {
     @Test
     func `pushElement and popElement pair correctly`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.element(tagName: "section", block: true, void: false, preformatted: false)
         ctx.pop.element(block: true)
         #expect(
@@ -177,7 +177,7 @@ extension ContextTests.Unit {
     @Test
     func `pushStyle and popStyle pair correctly`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.style()
         ctx.pop.style()
         #expect(state.events == [.pushStyle, .popStyle])
@@ -186,7 +186,7 @@ extension ContextTests.Unit {
     @Test
     func `setAttribute records name and value`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.set(attribute: "href", "https://example.com")
         #expect(state.events == [.setAttribute(name: "href", value: "https://example.com")])
     }
@@ -194,7 +194,7 @@ extension ContextTests.Unit {
     @Test
     func `addClass records class name`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.add(class: "bold")
         #expect(state.events == [.addClass("bold")])
     }
@@ -202,7 +202,7 @@ extension ContextTests.Unit {
     @Test
     func `writeRaw records bytes`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.write(raw: [0x48, 0x69])
         #expect(state.events == [.writeRaw([0x48, 0x69])])
     }
@@ -210,7 +210,7 @@ extension ContextTests.Unit {
     @Test
     func `registerStyle records declaration`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         let result = ctx.register(style: "color: red", atRule: nil, selector: nil, pseudo: nil)
         #expect(result == nil)
         #expect(
@@ -225,7 +225,7 @@ extension ContextTests.EdgeCase {
     @Test
     func `empty string text event is preserved`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.text("")
         #expect(state.events == [.text("")])
     }
@@ -233,7 +233,7 @@ extension ContextTests.EdgeCase {
     @Test
     func `heading level zero is recorded`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.block(role: .heading(level: 0), style: .empty)
         #expect(state.events[0] == .pushBlock(role: .heading(level: 0), style: .empty))
     }
@@ -242,7 +242,7 @@ extension ContextTests.EdgeCase {
     func `style with all nil fields`() {
         let style = Renderer.Document.Style()
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.inline(role: nil, style: style)
         #expect(state.events[0] == .pushInline(role: nil, style: style))
     }
@@ -250,7 +250,7 @@ extension ContextTests.EdgeCase {
     @Test
     func `ordered list with nil start`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.list(kind: .ordered, start: nil)
         #expect(state.events[0] == .pushList(kind: .ordered, start: nil))
     }
@@ -258,7 +258,7 @@ extension ContextTests.EdgeCase {
     @Test
     func `void element records all flags`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.element(tagName: "br", block: false, void: true, preformatted: false)
         #expect(
             state.events == [
@@ -270,7 +270,7 @@ extension ContextTests.EdgeCase {
     @Test
     func `preformatted element records flag`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.element(tagName: "pre", block: true, void: false, preformatted: true)
         ctx.pop.element(block: true)
         #expect(
@@ -286,7 +286,7 @@ extension ContextTests.Integration {
     @Test
     func `multiple events preserve insertion order`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.text("first")
         ctx.`break`.line()
         ctx.text("second")
@@ -306,7 +306,7 @@ extension ContextTests.Integration {
     @Test
     func `nested block and inline structure`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.block(role: .paragraph, style: .empty)
         ctx.push.inline(role: .emphasis, style: .empty)
         ctx.text("emphasized")
@@ -326,7 +326,7 @@ extension ContextTests.Integration {
     @Test
     func `list with items structure`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.list(kind: .unordered, start: nil)
         ctx.push.item()
         ctx.text("item 1")
@@ -352,7 +352,7 @@ extension ContextTests.Integration {
     @Test
     func `document structure with heading paragraph and list`() {
         let state = Renderer.Document.Recording.State()
-        var ctx = Renderer.Document.Context.recording(into: state)
+        let ctx = Renderer.Document.Context.recording(into: state)
         ctx.push.block(role: .heading(level: 1), style: .empty)
         ctx.text("Title")
         ctx.pop.block()
