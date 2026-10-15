@@ -26,6 +26,7 @@ let package = Package(
         .trait(name: "Pair", description: "Absorbed Pair integration"),
     ],
     dependencies: [
+        .package(url: "https://github.com/swift-atoms/swift-byte.git", branch: "main"),
         .package(url: "https://github.com/swift-atoms/swift-empty.git", branch: "main"),
         .package(url: "https://github.com/swift-atoms/swift-pair.git", branch: "main"),
     ],
@@ -33,23 +34,24 @@ let package = Package(
         .target(
             name: "Renderer",
             dependencies: [
+                .product(name: "Byte", package: "swift-byte", condition: .when(traits: ["Document"])),
                 .product(name: "Empty", package: "swift-empty", condition: .when(traits: ["Empty"])),
                 .product(name: "Pair", package: "swift-pair", condition: .when(traits: ["Pair"])),
-    ],
+            ],
             path: "Sources/Renderer"
         ),
 
         .target(
             name: "Renderer Foundation Integration",
             dependencies: [
-                .target(name: "Renderer"),
+                .target(name: "Renderer")
             ],
             path: "Sources/Renderer Foundation Integration"
         ),
         .target(
             name: "Renderer Test Support",
             dependencies: [
-                .target(name: "Renderer"),
+                .target(name: "Renderer")
             ],
             path: "Tests/Support"
         ),
@@ -66,21 +68,30 @@ let package = Package(
         .target(name: "Empty Renderer Test Support", dependencies: [.target(name: "Renderer")], path: "Tests/Absorbed/swift-empty-renderer/Support"),
         .testTarget(name: "Absorbed swift-pair-renderer Pair Renderer Tests", dependencies: [.target(name: "Renderer")], path: "Tests/Absorbed/swift-pair-renderer/Pair Renderer Tests"),
         .target(name: "Pair Renderer Test Support", dependencies: [.target(name: "Renderer")], path: "Tests/Absorbed/swift-pair-renderer/Support"),
-        .testTarget(name: "Absorbed swift-renderer-document Renderer Document Tests", dependencies: [.target(name: "Renderer"), .target(name: "Renderer Document Test Support")], path: "Tests/Absorbed/swift-renderer-document/Renderer Document Tests"),
-        .target(name: "Renderer Document Test Support", dependencies: [.target(name: "Renderer")], path: "Tests/Absorbed/swift-renderer-document/Support"),
+        .testTarget(
+            name: "Absorbed swift-renderer-document Renderer Document Tests",
+            dependencies: [.product(name: "Byte", package: "swift-byte", condition: .when(traits: ["Document"])), .target(name: "Renderer"), .target(name: "Renderer Document Test Support")],
+            path: "Tests/Absorbed/swift-renderer-document/Renderer Document Tests"
+        ),
+        .target(
+            name: "Renderer Document Test Support",
+            dependencies: [.target(name: "Renderer"), .product(name: "Byte", package: "swift-byte", condition: .when(traits: ["Document"]))],
+            path: "Tests/Absorbed/swift-renderer-document/Support"
+        ),
     ],
     swiftLanguageModes: [.v6]
 )
 
 for target in package.targets where ![.system, .binary, .plugin].contains(target.type) {
-    target.swiftSettings = (target.swiftSettings ?? []) + [
-        .strictMemorySafety(),
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableUpcomingFeature("InternalImportsByDefault"),
-        .enableUpcomingFeature("MemberImportVisibility"),
-        .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-        .enableUpcomingFeature("InferIsolatedConformances"),
-        .enableExperimentalFeature("Lifetimes"),
-        .treatAllWarnings(as: .error),
-    ]
+    target.swiftSettings =
+        (target.swiftSettings ?? []) + [
+            .strictMemorySafety(),
+            .enableUpcomingFeature("ExistentialAny"),
+            .enableUpcomingFeature("InternalImportsByDefault"),
+            .enableUpcomingFeature("MemberImportVisibility"),
+            .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+            .enableUpcomingFeature("InferIsolatedConformances"),
+            .enableExperimentalFeature("Lifetimes"),
+            .treatAllWarnings(as: .error),
+        ]
 }
