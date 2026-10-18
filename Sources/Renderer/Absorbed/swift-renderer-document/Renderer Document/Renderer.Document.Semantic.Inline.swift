@@ -1,10 +1,10 @@
 #if Document
-extension Renderer.Document.Semantic {
+    extension Renderer.Document.Semantic {
 
-    public enum Inline: Sendable {
-        case emphasis
-        case strong
-        case code
+        public enum Inline: Sendable {
+            case emphasis
+            case strong
+            case code
+        }
     }
-}
 #endif

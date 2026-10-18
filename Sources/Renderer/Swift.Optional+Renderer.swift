@@ -1,4 +1,5 @@
-extension Swift.Optional: Renderer.`Protocol` where
+extension Swift.Optional: Renderer.`Protocol`
+where
     Wrapped: Renderer.`Protocol` & ~Copyable,
     Wrapped.Input: ~Copyable & ~Escapable,
     Wrapped.Context: ~Copyable & ~Escapable

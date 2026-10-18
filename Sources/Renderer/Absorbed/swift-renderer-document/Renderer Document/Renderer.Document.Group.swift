@@ -1,22 +1,22 @@
 #if Document
-extension Renderer.Document {
+    extension Renderer.Document {
 
-    public struct Group<Content> {
+        public struct Group<Content> {
 
-        public let content: Content
+            public let content: Content
 
-        public init(
-            @Renderer.Document.Builder content: () -> Content
-        ) {
-            self.content = content()
+            public init(
+                @Renderer.Document.Builder content: () -> Content
+            ) {
+                self.content = content()
+            }
         }
     }
-}
 
-extension Renderer.Document.Group: Renderer.Document.View where Content: Renderer.Document.View {
+    extension Renderer.Document.Group: Renderer.Document.View where Content: Renderer.Document.View {
 
-    public var body: Content { content }
-}
+        public var body: Content { content }
+    }
 
-extension Renderer.Document.Group: Sendable where Content: Sendable {}
+    extension Renderer.Document.Group: Sendable where Content: Sendable {}
 #endif

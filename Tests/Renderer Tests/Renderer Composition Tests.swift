@@ -15,7 +15,8 @@ import Testing
     }
 
     func outcome<R: Renderer.`Protocol`>(
-        _ renderer: borrowing R, into context: inout [Int]
+        _ renderer: borrowing R,
+        into context: inout [Int]
     ) -> Failure? where R.Input == Int, R.Context == [Int], R.Failure == Failure {
         do {
             try renderer.render(10, into: &context)
@@ -50,7 +51,8 @@ import Testing
     func `Present optional operations preserve typed failures and effects`(stop: Int) {
         let operation = Step(index: 0, stop: stop)
         let optional: Step? = operation
-        var direct = [99], wrapped = [99]
+        var direct = [99]
+        var wrapped = [99]
 
         let directFailure = outcome(operation, into: &direct)
         let optionalFailure = outcome(optional, into: &wrapped)
@@ -60,7 +62,7 @@ import Testing
         #expect(wrapped == [99, 10])
     }
 
-    @Test func `A witness invokes its operation once per render and propagates failure` () {
+    @Test func `A witness invokes its operation once per render and propagates failure`() {
         var calls = 0
         let witness = Renderer.Witness<Int, [Int], Failure> { input, context throws(Failure) in
             calls += 1

@@ -1,6 +1,6 @@
 #if Document
-extension Renderer.Document {
+    extension Renderer.Document {
 
-    public enum Semantic {}
-}
+        public enum Semantic {}
+    }
 #endif

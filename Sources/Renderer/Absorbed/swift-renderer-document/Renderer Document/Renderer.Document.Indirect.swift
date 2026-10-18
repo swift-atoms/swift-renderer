@@ -1,14 +1,14 @@
 #if Document
-extension Renderer.Document {
+    extension Renderer.Document {
 
-    public final class Indirect<Content: ~Copyable> {
+        public final class Indirect<Content: ~Copyable> {
 
-        public let value: Content
+            public let value: Content
 
-        @inlinable
-        public init(_ value: consuming Content) { self.value = value }
+            @inlinable
+            public init(_ value: consuming Content) { self.value = value }
+        }
     }
-}
 
-extension Renderer.Document.Indirect: @unsafe @unchecked Sendable where Content: Sendable & ~Copyable {}
+    extension Renderer.Document.Indirect: @unsafe @unchecked Sendable where Content: Sendable & ~Copyable {}
 #endif

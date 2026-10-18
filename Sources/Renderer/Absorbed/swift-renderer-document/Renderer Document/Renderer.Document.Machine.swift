@@ -1,6 +1,6 @@
 #if Document
-extension Renderer.Document {
+    extension Renderer.Document {
 
-    public enum Machine {}
-}
+        public enum Machine {}
+    }
 #endif

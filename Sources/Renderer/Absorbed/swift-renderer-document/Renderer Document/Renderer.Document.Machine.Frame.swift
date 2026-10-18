@@ -1,10 +1,10 @@
 #if Document
-extension Renderer.Document.Machine {
+    extension Renderer.Document.Machine {
 
-    @usableFromInline
-    enum Frame {
+        @usableFromInline
+        enum Frame {
 
-        case closeScope(Renderer.Document.Action)
+            case closeScope(Renderer.Document.Action)
+        }
     }
-}
 #endif

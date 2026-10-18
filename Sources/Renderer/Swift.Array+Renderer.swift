@@ -1,4 +1,5 @@
-extension Swift.Array: Renderer.`Protocol` where
+extension Swift.Array: Renderer.`Protocol`
+where
     Element: Renderer.`Protocol`,
     Element.Input: ~Copyable & ~Escapable,
     Element.Context: ~Copyable & ~Escapable

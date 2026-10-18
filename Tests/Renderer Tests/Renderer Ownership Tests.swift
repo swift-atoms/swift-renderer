@@ -23,7 +23,7 @@ import Testing
         static var renderer: Renderer { Renderer() }
     }
 
-    @Test func `Optional noncopyable operations can be borrowed repeatedly` () {
+    @Test func `Optional noncopyable operations can be borrowed repeatedly`() {
         let present: Operation? = Operation()
         let absent: Operation? = nil
         let input = Input(value: 3)
@@ -36,7 +36,7 @@ import Testing
         #expect(context.total == 6)
     }
 
-    @Test func `Renderable borrows noncopyable values through noncopyable associated operations` () {
+    @Test func `Renderable borrows noncopyable values through noncopyable associated operations`() {
         let content = Content(value: 4)
         var context = Context()
 
@@ -46,7 +46,7 @@ import Testing
         #expect(context.total == 8)
     }
 
-    @Test func `Array and optional adapters preserve noncopyable inputs and contexts` () {
+    @Test func `Array and optional adapters preserve noncopyable inputs and contexts`() {
         let witness = Renderer.Witness<Input, Context, Never> { input, context in
             context.total += input.value
         }
@@ -61,7 +61,7 @@ import Testing
         #expect(input.value == 3)
     }
 
-    @Test func `Array and optional adapters accept scoped inputs and contexts` () {
+    @Test func `Array and optional adapters accept scoped inputs and contexts`() {
         let values = [3, 7]
         let input = values.span
         var context = ScopedContext(values.span)
@@ -89,7 +89,7 @@ import Testing
         static var renderer: Renderer { Renderer() }
     }
 
-    @Test func `Renderable forwards a scoped context to its associated operation` () {
+    @Test func `Renderable forwards a scoped context to its associated operation`() {
         let values = [3]
         var context = ScopedContext(values.span)
         let content = ScopedContent(value: 4)
