@@ -3,7 +3,7 @@
     import Testing
 
     @Suite struct `Empty renderer laws` {
-        enum Failure: Error, Equatable { case stopped }
+        enum Failure: Swift.Error, Equatable { case stopped }
 
         struct Context: ~Copyable { var total = 7 }
 

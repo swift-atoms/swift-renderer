@@ -3,7 +3,7 @@
     import Testing
 
     @Suite struct `Empty rendering contracts` {
-        enum Failure: Error { case unexpected }
+        enum Failure: Swift.Error { case unexpected }
 
         struct Content: Renderable {
             struct Renderer: Renderer::Renderer.`Protocol` {

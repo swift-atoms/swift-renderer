@@ -2,7 +2,7 @@ import Renderer
 import Testing
 
 @Suite struct `Renderer composition preserves effect order and typed failures` {
-    enum Failure: Error, Equatable { case stopped(Int) }
+    enum Failure: Swift.Error, Equatable { case stopped(Int) }
 
     struct Step: Renderer.`Protocol` {
         let index: Int

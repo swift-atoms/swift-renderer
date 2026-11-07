@@ -3,7 +3,7 @@
     import Testing
 
     @Suite struct `Pair renderer contracts` {
-        enum Failure: Error, Equatable { case stopped }
+        enum Failure: Swift.Error, Equatable { case stopped }
 
         struct DecoratedText: Renderer.`Protocol` {
             let prefix: String

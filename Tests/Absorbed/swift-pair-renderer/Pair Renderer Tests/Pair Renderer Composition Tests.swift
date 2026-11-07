@@ -3,7 +3,7 @@
     import Testing
 
     @Suite struct `Pair renderer composition laws` {
-        enum Failure: Error, Equatable { case stopped(Int) }
+        enum Failure: Swift.Error, Equatable { case stopped(Int) }
 
         struct Step: Renderer.`Protocol` {
             let index: Int
