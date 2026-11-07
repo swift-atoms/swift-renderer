@@ -9,12 +9,15 @@ extension Renderer {
         ) {
             self.operation = operation
         }
+    }
+}
 
-        public borrowing func render(
-            _ input: borrowing Input,
-            into context: inout Context
-        ) throws(Failure) {
-            try operation(input, &context)
-        }
+extension Renderer.Witness where Input: ~Copyable & ~Escapable, Context: ~Copyable & ~Escapable {
+
+    public borrowing func render(
+        _ input: borrowing Input,
+        into context: inout Context
+    ) throws(Failure) {
+        try operation(input, &context)
     }
 }
