@@ -1,5 +1,6 @@
 #if Document
     extension Renderer.Document {
+
         public struct Speculative {
             @usableFromInline var _begin: () -> Void
             @usableFromInline var _check: (_ minimumRequired: Int) -> Void
@@ -12,12 +13,10 @@
                 self._begin = begin
                 self._check = check
             }
+
+            @inlinable public func begin() { _begin() }
+
+            @inlinable public func check(fit minimumRequired: Int) { _check(minimumRequired) }
         }
     }
-
-extension Renderer.Document.Speculative {
-        @inlinable public func begin() { _begin() }
-
-        @inlinable public func check(fit minimumRequired: Int) { _check(minimumRequired) }
-}
 #endif
