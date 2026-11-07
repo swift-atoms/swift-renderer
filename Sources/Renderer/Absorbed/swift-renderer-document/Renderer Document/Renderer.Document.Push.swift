@@ -1,6 +1,5 @@
 #if Document
     extension Renderer.Document {
-
         public struct Push {
             @usableFromInline var _block: (_ role: Renderer.Document.Semantic.Block?, _ style: Renderer.Document.Style) -> Void
             @usableFromInline var _inline: (_ role: Renderer.Document.Semantic.Inline?, _ style: Renderer.Document.Style) -> Void
@@ -33,31 +32,33 @@
                 self._element = element
                 self._style = style
             }
-
-            @inlinable public func block(role: Renderer.Document.Semantic.Block?, style: Renderer.Document.Style) {
-                _block(role, style)
-            }
-
-            @inlinable public func inline(role: Renderer.Document.Semantic.Inline?, style: Renderer.Document.Style) {
-                _inline(role, style)
-            }
-
-            @inlinable public func list(kind: Renderer.Document.Semantic.List, start: Int?) { _list(kind, start) }
-
-            @inlinable public func item() { _item() }
-
-            @inlinable public func link(_ destination: String) { _link(destination) }
-
-            @inlinable public func attributes() { _attributes() }
-
-            @inlinable public func element(
-                tagName: String,
-                block isBlock: Bool,
-                void isVoid: Bool,
-                preformatted: Bool
-            ) { _element(tagName, isBlock, isVoid, preformatted) }
-
-            @inlinable public func style() { _style() }
         }
     }
+
+extension Renderer.Document.Push {
+        @inlinable public func block(role: Renderer.Document.Semantic.Block?, style: Renderer.Document.Style) {
+            _block(role, style)
+        }
+
+        @inlinable public func inline(role: Renderer.Document.Semantic.Inline?, style: Renderer.Document.Style) {
+            _inline(role, style)
+        }
+
+        @inlinable public func list(kind: Renderer.Document.Semantic.List, start: Int?) { _list(kind, start) }
+
+        @inlinable public func item() { _item() }
+
+        @inlinable public func link(_ destination: String) { _link(destination) }
+
+        @inlinable public func attributes() { _attributes() }
+
+        @inlinable public func element(
+            tagName: String,
+            block isBlock: Bool,
+            void isVoid: Bool,
+            preformatted: Bool
+        ) { _element(tagName, isBlock, isVoid, preformatted) }
+
+        @inlinable public func style() { _style() }
+}
 #endif
