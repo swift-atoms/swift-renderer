@@ -2,63 +2,67 @@
     import Renderer
     import Testing
 
-    @Suite struct `Pair renderer composition laws` {
-        enum Failure: Swift.Error, Equatable { case stopped(Int) }
+enum `Pair Renderer Composition Tests` {}
 
-        struct Step: Renderer.`Protocol` {
-            let index: Int
-            let stop: Int
+extension `Pair Renderer Composition Tests` {
+        @Suite struct `Pair renderer composition laws` {
+            enum Failure: Swift.Error, Equatable { case stopped(Int) }
 
-            func render(_ input: borrowing Int, into context: inout [Int]) throws(Failure) {
-                context.append(input + index)
-                if index == stop { throw .stopped(index) }
+            struct Step: Renderer.`Protocol` {
+                let index: Int
+                let stop: Int
+
+                func render(_ input: borrowing Int, into context: inout [Int]) throws(Failure) {
+                    context.append(input + index)
+                    if index == stop { throw .stopped(index) }
+                }
+            }
+
+            func outcome<R: Renderer.`Protocol`>(
+                _ renderer: borrowing R,
+                into context: inout [Int]
+            ) -> Failure? where R.Input == Int, R.Context == [Int], R.Failure == Failure {
+                do {
+                    try renderer.render(10, into: &context)
+                    return nil
+                } catch {
+                    return error
+                }
+            }
+
+            @Test(arguments: [-1, 0, 1, 2])
+            func `Regrouping and array composition preserve failure and effect order`(stop: Int) {
+                let a = Step(index: 0, stop: stop)
+                let b = Step(index: 1, stop: stop)
+                let c = Step(index: 2, stop: stop)
+                var left = [99]
+                var right = [99]
+                var array = [99]
+
+                let leftFailure = outcome(Pair(Pair(a, b), c), into: &left)
+                let rightFailure = outcome(Pair(a, Pair(b, c)), into: &right)
+                let arrayFailure = outcome([a, b, c], into: &array)
+
+                #expect(leftFailure == (stop < 0 ? nil : .stopped(stop)))
+                #expect(leftFailure == rightFailure)
+                #expect(leftFailure == arrayFailure)
+                #expect(left == [99] + Array(10...(stop < 0 ? 12 : 10 + stop)))
+                #expect(left == right)
+                #expect(left == array)
+            }
+
+            @Test func `Empty arrays and absent operations are composition identities`() {
+                let operation = Step(index: 0, stop: -1)
+                let empty: [Step] = []
+                let absent: Step? = nil
+                var context = [99]
+
+                #expect(outcome(Pair(empty, operation), into: &context) == nil)
+                #expect(outcome(Pair(operation, empty), into: &context) == nil)
+                #expect(outcome(Pair(absent, operation), into: &context) == nil)
+                #expect(outcome(Pair(operation, absent), into: &context) == nil)
+                #expect(context == [99, 10, 10, 10, 10])
             }
         }
-
-        func outcome<R: Renderer.`Protocol`>(
-            _ renderer: borrowing R,
-            into context: inout [Int]
-        ) -> Failure? where R.Input == Int, R.Context == [Int], R.Failure == Failure {
-            do {
-                try renderer.render(10, into: &context)
-                return nil
-            } catch {
-                return error
-            }
-        }
-
-        @Test(arguments: [-1, 0, 1, 2])
-        func `Regrouping and array composition preserve failure and effect order`(stop: Int) {
-            let a = Step(index: 0, stop: stop)
-            let b = Step(index: 1, stop: stop)
-            let c = Step(index: 2, stop: stop)
-            var left = [99]
-            var right = [99]
-            var array = [99]
-
-            let leftFailure = outcome(Pair(Pair(a, b), c), into: &left)
-            let rightFailure = outcome(Pair(a, Pair(b, c)), into: &right)
-            let arrayFailure = outcome([a, b, c], into: &array)
-
-            #expect(leftFailure == (stop < 0 ? nil : .stopped(stop)))
-            #expect(leftFailure == rightFailure)
-            #expect(leftFailure == arrayFailure)
-            #expect(left == [99] + Array(10...(stop < 0 ? 12 : 10 + stop)))
-            #expect(left == right)
-            #expect(left == array)
-        }
-
-        @Test func `Empty arrays and absent operations are composition identities`() {
-            let operation = Step(index: 0, stop: -1)
-            let empty: [Step] = []
-            let absent: Step? = nil
-            var context = [99]
-
-            #expect(outcome(Pair(empty, operation), into: &context) == nil)
-            #expect(outcome(Pair(operation, empty), into: &context) == nil)
-            #expect(outcome(Pair(absent, operation), into: &context) == nil)
-            #expect(outcome(Pair(operation, absent), into: &context) == nil)
-            #expect(context == [99, 10, 10, 10, 10])
-        }
-    }
+}
 #endif

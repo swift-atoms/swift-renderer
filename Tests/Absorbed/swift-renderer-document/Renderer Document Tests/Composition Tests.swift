@@ -7,6 +7,9 @@
     struct CompositionTests {
         @Suite struct Unit {}
         @Suite struct Integration {}
+    }
+
+    extension CompositionTests {
         @Suite struct EdgeCase {}
     }
 

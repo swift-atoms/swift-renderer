@@ -8,7 +8,11 @@
     struct ContextTests {
         @Suite struct Unit {}
         @Suite struct Integration {}
+    }
+
+    extension ContextTests {
         @Suite struct EdgeCase {}
+
         @Suite struct Interpret {}
     }
 

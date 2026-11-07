@@ -6,8 +6,11 @@
     @Suite("Renderer.Document.View")
     struct ViewTests {
         @Suite struct Unit {}
-        @Suite struct EdgeCase {}
         @Suite struct Integration {}
+    }
+
+    extension ViewTests {
+        @Suite struct EdgeCase {}
     }
 
     extension ViewTests.Unit {

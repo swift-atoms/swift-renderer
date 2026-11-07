@@ -22,6 +22,9 @@
     @Suite("NonCopyable")
     struct NonCopyableTests {
         @Suite struct Unit {}
+    }
+
+    extension NonCopyableTests {
         @Suite struct EdgeCase {}
     }
 

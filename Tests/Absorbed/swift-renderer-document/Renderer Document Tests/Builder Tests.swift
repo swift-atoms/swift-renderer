@@ -7,6 +7,9 @@
     struct BuilderTests {
         @Suite struct Unit {}
         @Suite struct Integration {}
+    }
+
+    extension BuilderTests {
         @Suite struct EdgeCase {}
     }
 
