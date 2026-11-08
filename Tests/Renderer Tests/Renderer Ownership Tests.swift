@@ -105,7 +105,7 @@ extension `Renderer Ownership Tests` {
     }
 }
 
-private struct ScopedContext: ~Copyable, ~Escapable {
+struct ScopedContext: ~Copyable, ~Escapable {
     let values: Span<Int>
     var total = 0
 
