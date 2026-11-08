@@ -1,3 +1,3 @@
 #if Empty
-    public import Empty
+    import Empty
 #endif
