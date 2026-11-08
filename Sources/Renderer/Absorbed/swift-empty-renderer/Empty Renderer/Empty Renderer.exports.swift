@@ -1,3 +1,3 @@
 #if Empty
-    @_exported public import Empty
+    public import Empty
 #endif
