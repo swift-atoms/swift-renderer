@@ -25,8 +25,6 @@ extension Renderer.Document.Style {
 
             public var weight: Weight?
 
-            public enum Weight: Sendable { case normal, bold }
-
             public init(size: Float? = nil, weight: Weight? = nil) {
                 self.size = size
                 self.weight = weight
@@ -36,5 +34,9 @@ extension Renderer.Document.Style {
         public enum Color: Sendable { case black, red, blue, gray }
 
         public static let empty = Self()
+}
+
+extension Renderer.Document.Style.Font {
+        public enum Weight: Sendable { case normal, bold }
 }
 #endif
