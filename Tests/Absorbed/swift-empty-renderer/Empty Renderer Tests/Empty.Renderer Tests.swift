@@ -23,7 +23,7 @@ extension `Empty.Renderer Tests` {
                 }
             }
 
-            struct OwnedContent: ~Copyable, Renderable {
+            fileprivate struct OwnedContent: ~Copyable, Renderable {
                 struct Renderer: ~Copyable, Renderer::Renderer.`Protocol` {
                     func render(_ input: borrowing OwnedContent, into context: inout String) { context += "unexpected" }
                 }

@@ -67,7 +67,7 @@ extension `Empty Renderer Laws Tests` {
         }
 }
 
-    struct EmptyScopedContext: ~Copyable, ~Escapable {
+    fileprivate struct EmptyScopedContext: ~Copyable, ~Escapable {
         let values: Span<Int>
         var total = 7
 

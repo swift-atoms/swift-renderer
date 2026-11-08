@@ -19,7 +19,7 @@ extension `Renderer Tests` {
         struct OwnedRenderer: ~Copyable, Renderer.`Protocol` {
             borrowing func render(_ input: borrowing OwnedInput, into context: inout String) { context += input.value }
         }
-        struct OwnedContext: ~Copyable { var count = 0 }
+        fileprivate struct OwnedContext: ~Copyable { var count = 0 }
 
         @Test func `An operation is independent of an input instance`() {
             let renderer = DecoratedText(prefix: "[")

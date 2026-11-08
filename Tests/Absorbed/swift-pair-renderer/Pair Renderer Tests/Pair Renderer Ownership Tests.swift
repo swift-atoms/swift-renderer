@@ -38,7 +38,7 @@ extension `Pair Renderer Ownership Tests` {
         }
 }
 
-    struct PairScopedContext: ~Copyable, ~Escapable {
+    fileprivate struct PairScopedContext: ~Copyable, ~Escapable {
         let values: Span<Int>
         var total = 0
 
