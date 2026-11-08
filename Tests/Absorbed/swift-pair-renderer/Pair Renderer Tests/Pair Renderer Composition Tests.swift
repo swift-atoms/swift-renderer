@@ -2,9 +2,9 @@
     import Renderer
     import Testing
 
-enum `Pair Renderer Composition Tests` {}
+    enum `Pair Renderer Composition Tests` {}
 
-extension `Pair Renderer Composition Tests` {
+    extension `Pair Renderer Composition Tests` {
         @Suite struct `Pair renderer composition laws` {
             enum Failure: Swift.Error, Equatable { case stopped(Int) }
 
@@ -64,5 +64,5 @@ extension `Pair Renderer Composition Tests` {
                 #expect(context == [99, 10, 10, 10, 10])
             }
         }
-}
+    }
 #endif

@@ -2,9 +2,9 @@
     import Renderer
     import Testing
 
-enum `Empty Renderer Laws Tests` {}
+    enum `Empty Renderer Laws Tests` {}
 
-extension `Empty Renderer Laws Tests` {
+    extension `Empty Renderer Laws Tests` {
         @Suite struct `Empty renderer laws` {
             enum Failure: Swift.Error, Equatable { case stopped }
 
@@ -65,9 +65,9 @@ extension `Empty Renderer Laws Tests` {
                 #expect(context.values[0] == 3)
             }
         }
-}
+    }
 
-    fileprivate struct EmptyScopedContext: ~Copyable, ~Escapable {
+    private struct EmptyScopedContext: ~Copyable, ~Escapable {
         let values: Span<Int>
         var total = 7
 

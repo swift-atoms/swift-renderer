@@ -5,7 +5,7 @@
         }
     }
 
-extension Renderer.Document.Empty {
+    extension Renderer.Document.Empty {
         public typealias Body = Never
 
         public var body: Never { fatalError("Renderer.Document.Empty has no body; it is a leaf view") }
@@ -14,5 +14,5 @@ extension Renderer.Document.Empty {
             _ view: borrowing Self,
             context: inout Renderer.Document.Context
         ) {}
-}
+    }
 #endif

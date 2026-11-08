@@ -2,9 +2,9 @@
     import Renderer
     import Testing
 
-enum `Empty.Renderer Tests` {}
+    enum `Empty.Renderer Tests` {}
 
-extension `Empty.Renderer Tests` {
+    extension `Empty.Renderer Tests` {
         @Suite struct `Empty rendering contracts` {
             enum Failure: Swift.Error { case unexpected }
 
@@ -50,5 +50,5 @@ extension `Empty.Renderer Tests` {
                 #expect(context == "before")
             }
         }
-}
+    }
 #endif

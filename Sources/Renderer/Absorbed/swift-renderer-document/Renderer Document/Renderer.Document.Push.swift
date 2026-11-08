@@ -35,7 +35,7 @@
         }
     }
 
-extension Renderer.Document.Push {
+    extension Renderer.Document.Push {
         @inlinable public func block(role: Renderer.Document.Semantic.Block?, style: Renderer.Document.Style) {
             _block(role, style)
         }
@@ -60,5 +60,5 @@ extension Renderer.Document.Push {
         ) { _element(tagName, isBlock, isVoid, preformatted) }
 
         @inlinable public func style() { _style() }
-}
+    }
 #endif

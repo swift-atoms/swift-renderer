@@ -2,9 +2,9 @@
     import Renderer
     import Testing
 
-enum `Pair Renderer Tests` {}
+    enum `Pair Renderer Tests` {}
 
-extension `Pair Renderer Tests` {
+    extension `Pair Renderer Tests` {
         @Suite struct `Pair renderer contracts` {
             enum Failure: Swift.Error, Equatable { case stopped }
 
@@ -58,5 +58,5 @@ extension `Pair Renderer Tests` {
                 #expect(context == "aaaa")
             }
         }
-}
+    }
 #endif

@@ -33,7 +33,7 @@
         }
     }
 
-extension Renderer.Document.Pop {
+    extension Renderer.Document.Pop {
         @inlinable public func block() { _block() }
 
         @inlinable public func inline() { _inline() }
@@ -49,5 +49,5 @@ extension Renderer.Document.Pop {
         @inlinable public func element(block isBlock: Bool) { _element(isBlock) }
 
         @inlinable public func style() { _style() }
-}
+    }
 #endif

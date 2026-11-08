@@ -2,9 +2,9 @@
     import Renderer
     import Testing
 
-enum `Pair Renderer Ownership Tests` {}
+    enum `Pair Renderer Ownership Tests` {}
 
-extension `Pair Renderer Ownership Tests` {
+    extension `Pair Renderer Ownership Tests` {
         @Suite struct `Pair renderer ownership contracts` {
             struct Input: ~Copyable { let value: Int }
             struct Context: ~Copyable { var total = 0 }
@@ -36,9 +36,9 @@ extension `Pair Renderer Ownership Tests` {
                 #expect(input[0] == 3)
             }
         }
-}
+    }
 
-    fileprivate struct PairScopedContext: ~Copyable, ~Escapable {
+    private struct PairScopedContext: ~Copyable, ~Escapable {
         let values: Span<Int>
         var total = 0
 

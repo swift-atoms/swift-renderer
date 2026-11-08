@@ -2,9 +2,9 @@
     import Renderer
     import Testing
 
-enum `Pair Renderer Empty Tests` {}
+    enum `Pair Renderer Empty Tests` {}
 
-extension `Pair Renderer Empty Tests` {
+    extension `Pair Renderer Empty Tests` {
         @Suite struct `Empty operations in pair composition` {
             enum Failure: Swift.Error, Equatable { case stopped }
 
@@ -72,5 +72,5 @@ extension `Pair Renderer Empty Tests` {
                 #expect(right.total == left.total)
             }
         }
-}
+    }
 #endif

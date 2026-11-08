@@ -18,11 +18,11 @@
         }
     }
 
-extension Renderer.Document.Break {
+    extension Renderer.Document.Break {
         @inlinable public func line() { _line() }
 
         @inlinable public func thematic() { _thematic() }
 
         @inlinable public func page() { _page() }
-}
+    }
 #endif

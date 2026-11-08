@@ -15,9 +15,9 @@
         }
     }
 
-extension Renderer.Document.Speculative {
+    extension Renderer.Document.Speculative {
         @inlinable public func begin() { _begin() }
 
         @inlinable public func check(fit minimumRequired: Int) { _check(minimumRequired) }
-}
+    }
 #endif
