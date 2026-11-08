@@ -3,7 +3,7 @@
     import Renderer_Document_Test_Support
     import Testing
 
-    @Suite("Composition")
+    @Suite
     struct CompositionTests {
         @Suite struct Unit {}
         @Suite struct Integration {}

@@ -3,7 +3,7 @@
     import Renderer_Document_Test_Support
     import Testing
 
-    @Suite("Renderer.Document.View")
+    @Suite
     struct ViewTests {
         @Suite struct Unit {}
         @Suite struct Integration {}

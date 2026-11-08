@@ -7,7 +7,7 @@
         var value: Int = 0
     }
 
-    @Suite("Indirect")
+    @Suite
     struct Tests {
         @Suite struct Unit {}
         @Suite struct `Edge Case` {}

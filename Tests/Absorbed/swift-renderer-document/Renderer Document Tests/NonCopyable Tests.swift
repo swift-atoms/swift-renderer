@@ -19,7 +19,7 @@
         }
     }
 
-    @Suite("NonCopyable")
+    @Suite
     struct NonCopyableTests {
         @Suite struct Unit {}
     }
