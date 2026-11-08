@@ -1,3 +1,3 @@
 #if Pair
-    public import Pair
+    import Pair
 #endif
