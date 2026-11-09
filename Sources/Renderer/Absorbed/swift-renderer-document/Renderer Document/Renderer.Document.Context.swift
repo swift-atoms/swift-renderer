@@ -165,10 +165,11 @@
 
         @inlinable
         public mutating func render<V: Renderer.Document.View & ~Copyable>(_ view: borrowing V) {
-            unsafe _stack.reserveCapacity(64)
-            defer { _cleanupStack() }
+            let marker = unsafe _stack.count
+            unsafe _stack.reserveCapacity(marker + 64)
+            defer { _cleanupStack(above: marker) }
             V._render(view, context: &self)
-            _drain(above: 0)
+            _drain(above: marker)
         }
 
         @usableFromInline
@@ -193,13 +194,13 @@
         }
 
         @usableFromInline
-        mutating func _cleanupStack() {
-            for unsafe work in unsafe _stack {
+        mutating func _cleanupStack(above marker: Int) {
+            for unsafe work in unsafe _stack[marker...] {
                 if case .render(let pointer, let thunk) = unsafe work {
                     unsafe thunk.destroy(pointer)
                 }
             }
-            unsafe _stack.removeAll(keepingCapacity: true)
+            unsafe _stack.removeSubrange(marker...)
         }
 
         @inlinable

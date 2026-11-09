@@ -559,3 +559,28 @@
         }
     }
 #endif
+
+#if Document
+    extension ContextTests.Integration {
+        @Test
+        func `nested render leaves the outer render's pending work in place`() {
+            let view = BlockWrapper(role: .paragraph) {
+                NestedRenderLeaf(tail: "tail") {
+                    TextLeaf("i1")
+                    TextLeaf("i2")
+                }
+                TextLeaf("after")
+            }
+            #expect(
+                render(view) == [
+                    .pushBlock(role: .paragraph, style: .empty),
+                    .text("i1"),
+                    .text("i2"),
+                    .text("tail"),
+                    .text("after"),
+                    .popBlock,
+                ]
+            )
+        }
+    }
+#endif
