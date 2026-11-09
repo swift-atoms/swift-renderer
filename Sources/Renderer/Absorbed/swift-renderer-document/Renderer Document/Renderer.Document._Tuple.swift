@@ -1,4 +1,6 @@
-#if Document
+// Full Swift only: Embedded Swift cannot specialize on a parameter pack's elements, so its builder
+// nests Renderer.Document.Pair instead (swift-atoms/swift-renderer#2).
+#if Document && !hasFeature(Embedded)
     extension Renderer.Document {
 
         public struct _Tuple<each Content> {
