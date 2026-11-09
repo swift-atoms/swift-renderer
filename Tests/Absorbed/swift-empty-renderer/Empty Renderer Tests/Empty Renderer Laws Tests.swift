@@ -67,7 +67,7 @@
         }
     }
 
-    private struct EmptyScopedContext: ~Copyable, ~Escapable {
+    struct EmptyScopedContext: ~Copyable, ~Escapable {
         let values: Span<Int>
         var total = 7
 
