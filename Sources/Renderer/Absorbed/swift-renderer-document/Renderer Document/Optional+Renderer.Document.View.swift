@@ -3,7 +3,6 @@
 
         public typealias Body = Never
 
-        public var body: Never { fatalError("Optional has no body; rendering is performed by _render") }
 
         public static func _render(
             _ view: borrowing Self,
