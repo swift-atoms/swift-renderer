@@ -9,6 +9,7 @@
             @usableFromInline var _attributes: () -> Void
             @usableFromInline var _element: (_ tagName: String, _ isBlock: Bool, _ isVoid: Bool, _ isPreElement: Bool) -> Void
             @usableFromInline var _style: () -> Void
+            @usableFromInline var _identity: (_ identity: Renderer.Document.Identity) -> Void
 
             @inlinable
             public init(
@@ -21,7 +22,8 @@
                 element:
                     @escaping (_ tagName: String, _ isBlock: Bool, _ isVoid: Bool, _ isPreElement: Bool)
                     -> Void = { _, _, _, _ in },
-                style: @escaping () -> Void = {}
+                style: @escaping () -> Void = {},
+                identity: @escaping (_ identity: Renderer.Document.Identity) -> Void = { _ in }
             ) {
                 self._block = block
                 self._inline = inline
@@ -31,6 +33,7 @@
                 self._attributes = attributes
                 self._element = element
                 self._style = style
+                self._identity = identity
             }
         }
     }
@@ -60,5 +63,7 @@
         ) { _element(tagName, isBlock, isVoid, preformatted) }
 
         @inlinable public func style() { _style() }
+
+        @inlinable public func identity(_ identity: Renderer.Document.Identity) { _identity(identity) }
     }
 #endif

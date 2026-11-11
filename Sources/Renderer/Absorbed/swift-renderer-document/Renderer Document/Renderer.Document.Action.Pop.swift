@@ -10,6 +10,7 @@
             case attributes
             case element(isBlock: Bool)
             case style
+            case identity
         }
     }
 #endif

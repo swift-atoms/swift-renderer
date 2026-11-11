@@ -10,6 +10,7 @@
             case attributes
             case element(tagName: String, isBlock: Bool, isVoid: Bool, isPreElement: Bool)
             case style
+            case identity(Renderer.Document.Identity)
         }
     }
 #endif

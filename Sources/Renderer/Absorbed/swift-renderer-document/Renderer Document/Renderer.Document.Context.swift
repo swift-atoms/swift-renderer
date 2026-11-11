@@ -28,6 +28,8 @@
 
             @usableFromInline var _spliceActions: ([Renderer.Document.Action]) -> Void
 
+            @usableFromInline var _listen: (Renderer.Document.Listener) -> Void
+
             public init(
                 text: @escaping (String) -> Void,
                 `break`: Renderer.Document.Break,
@@ -43,7 +45,8 @@
                     ) -> String? = { _, _, _, _ in nil },
                 applyInlineStyle: @escaping (Any) -> Bool = { _ in false },
                 speculative: Renderer.Document.Speculative = .init(),
-                spliceActions: @escaping ([Renderer.Document.Action]) -> Void = { _ in }
+                spliceActions: @escaping ([Renderer.Document.Action]) -> Void = { _ in },
+                listen: @escaping (Renderer.Document.Listener) -> Void = { _ in }
             ) {
                 self.text = text
                 self.`break` = `break`
@@ -57,6 +60,7 @@
                 self._applyInlineStyle = applyInlineStyle
                 self.speculative = speculative
                 self._spliceActions = spliceActions
+                self._listen = listen
             }
         }
     }
@@ -96,6 +100,11 @@
         @inlinable
         public func splice(_ actions: [Renderer.Document.Action]) {
             _spliceActions(actions)
+        }
+
+        @inlinable
+        public func listen(_ listener: Renderer.Document.Listener) {
+            _listen(listener)
         }
     }
 
@@ -139,6 +148,7 @@
                     )
 
                 case .style: self.push.style()
+                case .identity(let identity): self.push.identity(identity)
                 }
 
             case .pop(let pop):
@@ -151,6 +161,7 @@
                 case .attributes: self.pop.attributes()
                 case .element(let isBlock): self.pop.element(block: isBlock)
                 case .style: self.pop.style()
+                case .identity: self.pop.identity()
                 }
             }
         }

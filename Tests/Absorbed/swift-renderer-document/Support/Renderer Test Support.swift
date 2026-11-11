@@ -63,6 +63,9 @@
                 case popElement(isBlock: Bool)
                 case pushStyle
                 case popStyle
+                case pushIdentity(Renderer.Document.Identity)
+                case popIdentity
+                case listen(String)
 
                 public enum Break: Equatable, Sendable {
                     case line
@@ -93,7 +96,8 @@
                     element: { tagName, isBlock, isVoid, isPreElement in
                         state.events.append(.pushElement(tagName: tagName, isBlock: isBlock, isVoid: isVoid, isPreElement: isPreElement))
                     },
-                    style: { state.events.append(.pushStyle) }
+                    style: { state.events.append(.pushStyle) },
+                    identity: { state.events.append(.pushIdentity($0)) }
                 ),
                 pop: .init(
                     block: { state.events.append(.popBlock) },
@@ -103,7 +107,8 @@
                     link: { state.events.append(.popLink) },
                     attributes: { state.events.append(.popAttributes) },
                     element: { state.events.append(.popElement(isBlock: $0)) },
-                    style: { state.events.append(.popStyle) }
+                    style: { state.events.append(.popStyle) },
+                    identity: { state.events.append(.popIdentity) }
                 ),
                 setAttribute: { state.events.append(.setAttribute(name: $0, value: $1)) },
                 addClass: { state.events.append(.addClass($0)) },
@@ -111,7 +116,8 @@
                 registerStyle: { decl, atRule, sel, pseudo in
                     state.events.append(.registerStyle(declaration: decl, atRule: atRule, selector: sel, pseudo: pseudo))
                     return nil
-                }
+                },
+                listen: { state.events.append(.listen($0.name)) }
             )
         }
     }

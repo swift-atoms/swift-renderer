@@ -9,6 +9,7 @@
             @usableFromInline var _attributes: () -> Void
             @usableFromInline var _element: (_ isBlock: Bool) -> Void
             @usableFromInline var _style: () -> Void
+            @usableFromInline var _identity: () -> Void
 
             @inlinable
             public init(
@@ -19,7 +20,8 @@
                 link: @escaping () -> Void,
                 attributes: @escaping () -> Void = {},
                 element: @escaping (_ isBlock: Bool) -> Void = { _ in },
-                style: @escaping () -> Void = {}
+                style: @escaping () -> Void = {},
+                identity: @escaping () -> Void = {}
             ) {
                 self._block = block
                 self._inline = inline
@@ -29,6 +31,7 @@
                 self._attributes = attributes
                 self._element = element
                 self._style = style
+                self._identity = identity
             }
         }
     }
@@ -49,5 +52,7 @@
         @inlinable public func element(block isBlock: Bool) { _element(isBlock) }
 
         @inlinable public func style() { _style() }
+
+        @inlinable public func identity() { _identity() }
     }
 #endif
