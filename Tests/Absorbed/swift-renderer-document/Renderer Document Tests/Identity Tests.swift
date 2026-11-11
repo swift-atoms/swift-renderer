@@ -3,12 +3,13 @@
     import Renderer_Document_Test_Support
     import Testing
 
-    @Suite
-    struct IdentityTests {
-        @Suite struct Unit {}
+    enum `Renderer.Document.Identity Tests` {}
+
+    extension `Renderer.Document.Identity Tests` {
+        @Suite struct `Identities follow their ids and scope rows` {}
     }
 
-    extension IdentityTests.Unit {
+    extension `Renderer.Document.Identity Tests`.`Identities follow their ids and scope rows` {
         @Test
         func `equal ids give equal identities`() {
             #expect(Renderer.Document.Identity(42) == Renderer.Document.Identity(42))

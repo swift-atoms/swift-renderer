@@ -13,7 +13,7 @@
                     Renderer.Document._Tuple(repeat each content)
                 }
             #else
-                // Embedded Swift cannot specialize generic calls on the elements of a parameter pack
+                // WHY: Embedded Swift cannot specialize generic calls on the elements of a parameter pack
                 // (swift-atoms/swift-renderer#2), so a block of several children builds nested pairs instead,
                 // rendered first, then second.
                 public static func buildPartialBlock<V>(first: V) -> V { first }

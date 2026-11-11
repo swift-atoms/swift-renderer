@@ -1,4 +1,4 @@
-// Full Swift only: Embedded Swift cannot specialize on a parameter pack's elements, so its builder
+// WHY: full Swift only. Embedded Swift cannot specialize on a parameter pack's elements, so its builder
 // nests Renderer.Document.Pair instead (swift-atoms/swift-renderer#2).
 #if Document && !hasFeature(Embedded)
     extension Renderer.Document {

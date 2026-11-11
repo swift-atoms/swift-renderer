@@ -3,12 +3,13 @@
     import Renderer_Document_Test_Support
     import Testing
 
-    @Suite
-    struct ListenerTests {
-        @Suite struct Unit {}
+    enum `Renderer.Document.Listener Tests` {}
+
+    extension `Renderer.Document.Listener Tests` {
+        @Suite struct `Listeners reach the context and hand on events` {}
     }
 
-    extension ListenerTests.Unit {
+    extension `Renderer.Document.Listener Tests`.`Listeners reach the context and hand on events` {
         @Test
         func `listen reaches the context`() {
             let state = Renderer.Document.Recording.State()
