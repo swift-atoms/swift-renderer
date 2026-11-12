@@ -42,5 +42,30 @@
             context.interpret([.push(.identity(Renderer.Document.Identity(3))), .pop(.identity)])
             #expect(state.events == [.pushIdentity(Renderer.Document.Identity(3)), .popIdentity])
         }
+
+        @Test
+        func `rows render in order, each inside its identity`() {
+            let state = Renderer.Document.Recording.State()
+            var context = Renderer.Document.Context.recording(into: state)
+            context.render(Renderer.Document.ForEach(["a", "b"], id: { $0 }) { TextLeaf($0) })
+            #expect(
+                state.events == [
+                    .pushIdentity(Renderer.Document.Identity("a")),
+                    .text("a"),
+                    .popIdentity,
+                    .pushIdentity(Renderer.Document.Identity("b")),
+                    .text("b"),
+                    .popIdentity,
+                ]
+            )
+        }
+
+        @Test
+        func `an empty collection renders nothing`() {
+            let state = Renderer.Document.Recording.State()
+            var context = Renderer.Document.Context.recording(into: state)
+            context.render(Renderer.Document.ForEach([String](), id: { $0 }) { TextLeaf($0) })
+            #expect(state.events.isEmpty)
+        }
     }
 #endif
