@@ -31,9 +31,11 @@
         }
     }
 
-    extension Never: Renderer.Document.Primitive {
+    extension Never: Renderer.Document.View {
 
         public typealias Body = Never
+
+        public var body: Never { fatalError("Never has no body") }
 
         public static func _render(
             _ view: borrowing Self,

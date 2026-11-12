@@ -25,6 +25,10 @@
 
         public typealias Body = Never
 
+        public var body: Never {
+            fatalError("Renderer.Document.ForEach has no body; rendering is performed by _render")
+        }
+
         public static func _render(
             _ view: borrowing Self,
             context: inout Renderer.Document.Context
@@ -36,6 +40,4 @@
             }
         }
     }
-
-    extension Renderer.Document.ForEach: Renderer.Document.Primitive {}
 #endif

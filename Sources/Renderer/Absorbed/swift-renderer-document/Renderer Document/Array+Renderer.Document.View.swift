@@ -3,6 +3,8 @@
 
         public typealias Body = Never
 
+        public var body: Never { fatalError("Array has no body; rendering is performed by _render") }
+
         public static func _render(
             _ view: borrowing Self,
             context: inout Renderer.Document.Context
@@ -22,6 +24,4 @@
             context._reverseAbove(marker)
         }
     }
-
-    extension Array: Renderer.Document.Primitive where Element: Renderer.Document.View {}
 #endif
