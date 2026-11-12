@@ -3,7 +3,6 @@
 
         public typealias Body = Never
 
-
         public static func _render(
             _ view: borrowing Self,
             context: inout Renderer.Document.Context
@@ -15,4 +14,6 @@
             }
         }
     }
+
+    extension Optional: Renderer.Document.Primitive where Wrapped: Renderer.Document.View {}
 #endif

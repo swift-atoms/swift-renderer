@@ -36,4 +36,6 @@
             }
         }
     }
+
+    extension Renderer.Document.ForEach: Renderer.Document.Primitive {}
 #endif

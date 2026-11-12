@@ -12,7 +12,6 @@
 
         public typealias Body = Never
 
-
         public static func _render(
             _ view: borrowing Self,
             context: inout Renderer.Document.Context
@@ -27,4 +26,7 @@
     extension Renderer.Document.Conditional: Copyable where First: Copyable, Second: Copyable {}
     extension Renderer.Document.Conditional: Sendable
     where First: Sendable & Copyable, Second: Sendable & Copyable {}
+
+    extension Renderer.Document.Conditional: Renderer.Document.Primitive
+    where First: Renderer.Document.View & ~Copyable, Second: Renderer.Document.View & ~Copyable {}
 #endif

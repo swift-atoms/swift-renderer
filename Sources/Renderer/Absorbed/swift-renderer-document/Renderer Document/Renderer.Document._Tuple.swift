@@ -17,7 +17,6 @@
 
         public typealias Body = Never
 
-
         public static func _render(
             _ view: borrowing Self,
             context: inout Renderer.Document.Context
@@ -39,4 +38,6 @@
     }
 
     extension Renderer.Document._Tuple: Sendable where repeat each Content: Sendable {}
+
+    extension Renderer.Document._Tuple: Renderer.Document.Primitive where repeat each Content: Renderer.Document.View {}
 #endif

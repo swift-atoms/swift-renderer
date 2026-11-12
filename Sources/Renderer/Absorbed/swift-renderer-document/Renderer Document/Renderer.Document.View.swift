@@ -31,15 +31,9 @@
         }
     }
 
-    extension Renderer.Document.View where Self: ~Copyable, Body == Never {
-
-        public var body: Never { fatalError("A view whose Body is Never has no body; rendering is performed by _render") }
-    }
-
-    extension Never: Renderer.Document.View {
+    extension Never: Renderer.Document.Primitive {
 
         public typealias Body = Never
-
 
         public static func _render(
             _ view: borrowing Self,
