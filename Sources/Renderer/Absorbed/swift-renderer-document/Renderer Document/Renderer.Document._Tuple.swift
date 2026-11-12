@@ -17,9 +17,7 @@
 
         public typealias Body = Never
 
-        public var body: Never {
-            fatalError("Renderer.Document._Tuple has no body; rendering is performed by _render")
-        }
+        public var body: Never { Self.unrendered }
 
         public static func _render(
             _ view: borrowing Self,
